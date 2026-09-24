@@ -577,8 +577,12 @@ function ProspectsPageInner() {
                         <div key={contact.id} className="py-2 first:pt-0 last:pb-0">
                           <div className="flex items-center gap-2">
                             <span className="text-xs text-muted-foreground">{contact.title}</span>
-                            <span className="text-muted-foreground/40">·</span>
-                            <span className="text-sm font-medium">{contact.name}</span>
+                            {contact.name && (
+                              <>
+                                <span className="text-muted-foreground/40">·</span>
+                                <span className="text-sm font-medium">{contact.name}</span>
+                              </>
+                            )}
                             <Badge
                               variant="outline"
                               className={cn(
