@@ -158,7 +158,7 @@ const MOCK_PROSPECTS = [
 
 const MOCK_COMPETE = {
   provider: {
-    name: "Sample AI Cloud Provider", short_name: "Sample Provider", industry: "AI Infrastructure / Data Center", capacity_mw: 1000, gpu_count: 20000, is_public: false, ticker: "", hq_location: "Ashburn, VA", website: "", segment: "Data Center",
+    name: "Sample AI Cloud Provider", short_name: "Sample Provider", industry: "AI Data Center / Energy", capacity_mw: 1000, gpu_count: 20000, is_public: false, ticker: "", hq_location: "Ashburn, VA", website: "", segment: "Power-First",
   },
   competitors: [
     {

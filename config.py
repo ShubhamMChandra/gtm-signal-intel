@@ -121,7 +121,7 @@ except ImportError:
     PROVIDER_PROFILE = {
         "name": "Sample AI Cloud Provider",
         "short_name": "Sample Provider",
-        "industry": "AI Infrastructure / Data Center",
+        "industry": "AI Data Center / Energy",
         "capacity_mw": 1000,
         "gpu_count": 20000,
         "is_public": False,
