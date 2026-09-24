@@ -18,7 +18,7 @@ from database.models import Signal
 
 
 _FETCH_TIMEOUT = 8
-_FETCH_HEADERS = {"User-Agent": "IrenIntel/1.0 (research platform)"}
+_FETCH_HEADERS = {"User-Agent": "GTMSignalIntel/1.0 (research platform)"}
 
 
 def fetch_feed(url: str) -> feedparser.FeedParserDict:

@@ -27,7 +27,7 @@ if _b64 and not (ROOT / "private" / "__init__.py").exists():
         (_priv / "__init__.py").touch(exist_ok=True)
     except Exception as _exc:
         import logging as _lg
-        _lg.getLogger("iren.bootstrap").warning("Failed to bootstrap private/: %s — using defaults", _exc)
+        _lg.getLogger("gtm.bootstrap").warning("Failed to bootstrap private/: %s — using defaults", _exc)
 del _b64
 
 from config import (
@@ -51,7 +51,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from pydantic import BaseModel
 
-logger = logging.getLogger("iren.api")
+logger = logging.getLogger("gtm.api")
 _level = getattr(logging, LOG_LEVEL, logging.INFO)
 logging.basicConfig(level=_level, format="%(levelname)s %(name)s %(message)s")
 

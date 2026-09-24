@@ -6,7 +6,7 @@ to tests.  When a test function has a parameter named `session` or `sample_compa
 pytest looks here, runs the matching fixture, and passes the result in.
 
 We use an IN-MEMORY SQLite database so tests are fast, isolated, and never
-touch your real data/iren_intel.db file.
+touch your real data/gtm_signal_intel.db file.
 """
 
 import pytest
