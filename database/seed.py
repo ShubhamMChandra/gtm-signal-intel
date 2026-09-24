@@ -4472,8 +4472,19 @@ def seed_database(use_web_search: bool = False, run_embed_after: bool = False):
         from database.seed_web import fetch_company_description
         print("Enriching company descriptions via web search...")
 
+    # Some neoclouds and miners both buy and sell capacity, so they appear in
+    # PROSPECTS and COMPETITORS. Company.name is unique; the competitor row
+    # carries the richer fields (capacity, pricing, threat level), so it wins.
+    competitor_names = {c["name"] for c in COMPETITORS}
+    skipped = sorted(p["name"] for p in PROSPECTS if p["name"] in competitor_names)
+    if skipped:
+        print(f"Skipping {len(skipped)} prospects already seeded as competitors: {', '.join(skipped)}")
+
     count = 0
+    prospect_count = 0
     for data in list(PROSPECTS):
+        if data["name"] in competitor_names:
+            continue
         row = dict(data)
         if use_web_search:
             desc = fetch_company_description(row.get("name", ""), row.get("industry", ""))
@@ -4482,6 +4493,7 @@ def seed_database(use_web_search: bool = False, run_embed_after: bool = False):
         company = Company(company_type="prospect", **row)
         session.add(company)
         count += 1
+        prospect_count += 1
 
     for data in list(COMPETITORS):
         row = dict(data)
@@ -4513,7 +4525,7 @@ def seed_database(use_web_search: bool = False, run_embed_after: bool = False):
             contact_count += 1
 
     session.commit()
-    print(f"Seeded {count} companies ({len(PROSPECTS)} prospects, {len(COMPETITORS)} competitors).")
+    print(f"Seeded {count} companies ({prospect_count} prospects, {len(COMPETITORS)} competitors).")
     print(f"Seeded {contact_count} persona contacts.")
     session.close()
 

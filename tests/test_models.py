@@ -131,3 +131,30 @@ class TestSignalModel:
     def test_signal_repr(self, sample_signals):
         sig = sample_signals[0]
         assert "fundraising" in repr(sig)
+
+
+# ── Seed data ────────────────────────────────────────────────────
+
+
+def test_seed_names_are_unique_after_dedupe(engine, monkeypatch):
+    """A fresh seed must not violate UNIQUE(companies.name).
+
+    Nine companies are both prospects and competitors; seed_database()
+    stores each once, as a competitor.
+    """
+    from sqlalchemy.orm import sessionmaker
+    import database.seed as seed
+
+    Session = sessionmaker(bind=engine)
+    monkeypatch.setattr(seed, "init_db", lambda: None)
+    monkeypatch.setattr(seed, "get_session", Session)
+
+    seed.seed_database()
+
+    sess = Session()
+    names = [c.name for c in sess.query(Company).all()]
+    competitors = sess.query(Company).filter_by(company_type="competitor").count()
+    sess.close()
+
+    assert len(names) == len(set(names))
+    assert competitors == len(seed.COMPETITORS)
