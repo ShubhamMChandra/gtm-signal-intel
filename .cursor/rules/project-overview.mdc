@@ -1,12 +1,12 @@
 ---
-description: Iren Sales Intelligence platform — architecture, tech stack, and project conventions
+description: GTM Signal Intelligence platform: architecture, tech stack, and project conventions
 alwaysApply: true
 ---
 
-# Iren Sales Intelligence Platform
+# GTM Signal Intelligence Platform
 
 ## Tech Stack
-- **Python 3.14**, SQLAlchemy 2.x ORM, SQLite (single file at `data/iren_intel.db`)
+- **Python 3.14**, SQLAlchemy 2.x ORM, SQLite (single file at `data/gtm_signal_intel.db`)
 - **Streamlit** for the web UI (multi-page via sidebar radio, NOT `st.Page`)
 - **OpenRouter** (OpenAI-compatible) for generation: summaries, classification, briefs — every AI function has a keyword-based fallback
 - **Ollama** (local) for embeddings only: signal dedup, semantic search, similar signals — graceful no-op when Ollama isn't running

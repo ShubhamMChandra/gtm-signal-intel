@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent
 load_dotenv(BASE_DIR / ".env")
 
-DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{BASE_DIR / 'data' / 'iren_intel.db'}")
+DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{BASE_DIR / 'data' / 'gtm_signal_intel.db'}")
 
 # CORS — wildcard in dev; set CORS_ORIGINS=https://app.example.com in production
 CORS_ORIGINS: list[str] = [o.strip() for o in os.getenv("CORS_ORIGINS", "").split(",") if o.strip()] or ["*"]
@@ -47,7 +47,7 @@ COLLECT_SCHEDULE_HOUR = int(os.getenv("COLLECT_SCHEDULE_HOUR", "7"))
 
 SEC_EDGAR_USER_AGENT = os.getenv(
     "SEC_EDGAR_USER_AGENT",
-    "IrenIntel research@iren.com",
+    "GTMSignalIntel research@example.com",
 )
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "")

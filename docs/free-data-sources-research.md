@@ -25,7 +25,7 @@ Form D filings reveal **private company funding rounds** (Regulation D exempt of
 ```python
 import requests, zipfile, io, csv
 
-HEADERS = {"User-Agent": "IrenIntel/1.0 (contact@example.com)"}
+HEADERS = {"User-Agent": "GTMSignalIntel/1.0 (contact@example.com)"}
 
 def download_form_d_quarter(year: int, quarter: int) -> list[dict]:
     url = f"https://www.sec.gov/files/structureddata/data/form-d-data-sets/{year}q{quarter}_d.zip"
@@ -73,7 +73,7 @@ matches = [o for o in offerings if any(k in (o["issuer"] or "").lower() for k in
 ```python
 import requests
 
-HEADERS = {"User-Agent": "IrenIntel/1.0 (contact@example.com)", "Accept": "application/json"}
+HEADERS = {"User-Agent": "GTMSignalIntel/1.0 (contact@example.com)", "Accept": "application/json"}
 
 def search_form_d(query: str, start_dt: str = "2020-01-01", end_dt: str = "2026-12-31"):
     resp = requests.get("https://efts.sec.gov/LATEST/search-index", params={
@@ -385,7 +385,7 @@ DATA_CENTER_CPC = [
 import requests
 
 BASE = "https://www.peeringdb.com/api"
-HEADERS = {"Accept": "application/json", "User-Agent": "IrenIntel/1.0 (contact@example.com)"}
+HEADERS = {"Accept": "application/json", "User-Agent": "GTMSignalIntel/1.0 (contact@example.com)"}
 
 def get_company_facilities(company_name: str) -> list[dict]:
     r = requests.get(f"{BASE}/org", params={"name__contains": company_name},
@@ -474,7 +474,7 @@ GPU_KEYWORDS = ["coreweave", "lambda", "crusoe", "applied digital", "lancium",
                 "gpu cloud", "h100", "h200", "blackwell", "gb200", "dgx"]
 
 def fetch_nvidia_rss(feed_url: str, limit: int = 30) -> list[dict]:
-    resp = requests.get(feed_url, headers={"User-Agent": "IrenIntel/1.0"}, timeout=15)
+    resp = requests.get(feed_url, headers={"User-Agent": "GTMSignalIntel/1.0 (contact@example.com)"}, timeout=15)
     resp.raise_for_status()
     root = ET.fromstring(resp.content)
     items = root.findall(".//item")[:limit]
@@ -506,7 +506,7 @@ def search_sec_8k_nvidia(start_dt: str = "2024-01-01"):
     resp = requests.get("https://efts.sec.gov/LATEST/search-index", params={
         "q": "NVIDIA GPU", "forms": "8-K",
         "dateRange": "custom", "startdt": start_dt, "enddt": "2026-12-31", "count": 25,
-    }, headers={"User-Agent": "IrenIntel/1.0 (contact@example.com)",
+    }, headers={"User-Agent": "GTMSignalIntel/1.0 (contact@example.com)",
                 "Accept": "application/json"}, timeout=15)
     resp.raise_for_status()
     return [hit["_source"] for hit in resp.json().get("hits", {}).get("hits", [])]

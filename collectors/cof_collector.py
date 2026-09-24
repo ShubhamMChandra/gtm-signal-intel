@@ -127,7 +127,7 @@ class COFCollector(BaseCollector):
     def _download_and_parse(self, url: str) -> list[dict]:
         """Download PDF from URL and extract tabular rows."""
         try:
-            resp = requests.get(url, timeout=60, headers={"User-Agent": "IrenIntel/1.0"})
+            resp = requests.get(url, timeout=60, headers={"User-Agent": "GTMSignalIntel/1.0"})
             resp.raise_for_status()
         except Exception as e:
             print(f"[cof] Download error {url}: {e}")

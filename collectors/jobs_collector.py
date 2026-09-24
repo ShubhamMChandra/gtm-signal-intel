@@ -28,7 +28,7 @@ _COMPANY_LIMIT = 80
 def _fetch_feed(url: str) -> feedparser.FeedParserDict:
     try:
         resp = requests.get(url, timeout=_REQUEST_TIMEOUT, headers={
-            "User-Agent": "IrenIntel/1.0 (research platform)"
+            "User-Agent": "GTMSignalIntel/1.0 (research platform)"
         })
         resp.raise_for_status()
         return feedparser.parse(resp.text)

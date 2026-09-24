@@ -199,7 +199,7 @@ class VEDPCollector(BaseCollector):
     def _fetch_page_text(self, url: str) -> str | None:
         """Fetch press release HTML and return cleaned text."""
         try:
-            resp = requests.get(url, timeout=15, headers={"User-Agent": "IrenIntel/1.0"})
+            resp = requests.get(url, timeout=15, headers={"User-Agent": "GTMSignalIntel/1.0"})
             resp.raise_for_status()
             soup = BeautifulSoup(resp.text, "html.parser")
             return soup.get_text(separator=" ", strip=True)

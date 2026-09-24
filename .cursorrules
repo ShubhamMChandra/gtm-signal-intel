@@ -1,8 +1,8 @@
-## Iren Sales Intelligence Platform
+## GTM Signal Intelligence
 
 Python 3.14 / Streamlit / SQLAlchemy / SQLite / OpenRouter (generation) / Ollama (local embeddings)
 
-Sales intelligence tool for Iren's commercial team. Scores prospect companies (AI labs, hyperscalers, enterprise) based on public signals (funding, hiring, AI initiatives), with a competitive intelligence layer for market context.
+Sales intelligence tool for an AI-infrastructure provider's commercial team (provider profile is configurable). Scores prospect companies (AI labs, hyperscalers, enterprise) based on public signals (funding, hiring, AI initiatives), with a competitive intelligence layer for market context.
 
 ### Project Layout
 - `app.py` — Streamlit entrypoint

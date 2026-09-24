@@ -1,15 +1,15 @@
-# Iren Sales Intelligence — machine-readable context for LLM-assisted development.
+# GTM Signal Intelligence: machine-readable context for LLM-assisted development.
 # Regenerate with: python scripts/generate_llm_context.py
 # Schema: project metadata, layout, API surface, types, conventions, task checklists.
 
 project:
-  name: iren-comp-intel
-  description: Sales intelligence for Iren commercial team; prospect scoring and competitive intel.
+  name: gtm-signal-intel
+  description: Signal-driven GTM intelligence for AI-infrastructure providers; prospect scoring and competitive intel. Provider profile is configurable.
   stack:
     backend: Python 3.14, FastAPI, SQLAlchemy 2.x, SQLite
     frontend: Next.js 16, React 19, TypeScript
     ai: OpenRouter (generation), Ollama (embeddings only)
-  database_path: data/iren_intel.db
+  database_path: data/gtm_signal_intel.db
 
 layout:
   backend:
