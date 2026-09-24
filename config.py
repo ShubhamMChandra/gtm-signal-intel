@@ -107,67 +107,59 @@ SOURCE_CONFIDENCE = {
 }
 
 try:
-    from private.iren_config import (
-        IREN_BENCHMARK,
+    from private.provider_config import (
+        PROVIDER_PROFILE,
         COMPETITOR_SEGMENTS,
         SEGMENT_PROFILES,
         PRODUCT_FIT_TO_SEGMENTS,
     )
 except ImportError:
-    # Public fallback — all data sourced from iren.com, SEC filings, press releases
-    IREN_BENCHMARK = {
-        "name": "Iren",
-        "industry": "AI Data Center / Energy",
-        "capacity_mw": 4500,
-        "gpu_count": 10900,
-        "is_public": True,
-        "ticker": "IREN",
-        "exchange": "NASDAQ",
-        "hq_location": "Sydney, Australia",
-        "website": "https://iren.com",
-        "key_customers": ["Microsoft", "Together AI", "FluidStack", "Fireworks AI"],
+    # Sample profile. Not a real company. All numbers are round, illustrative
+    # values chosen to sit mid-pack against the seeded competitors so threat
+    # levels and positioning stay meaningful. Replace by adding
+    # private/provider_config.py (gitignored) with the same four names.
+    PROVIDER_PROFILE = {
+        "name": "Sample AI Cloud Provider",
+        "short_name": "Sample Provider",
+        "industry": "AI Infrastructure / Data Center",
+        "capacity_mw": 1000,
+        "gpu_count": 20000,
+        "is_public": False,
+        "ticker": "",
+        "exchange": "",
+        "hq_location": "Ashburn, VA",
+        "website": "",
+        "home_markets": ["Northern Virginia"],
+        "key_customers": [],
         "known_pricing": (
-            "AI Cloud pricing via direct engagement. "
-            "BTS power ~$0.028/kWh at Childress (spot), ~$0.05/kWh all-in West Texas. "
-            "$9.7B Microsoft contract at ~$1.94B annualized revenue with 20% prepayment."
+            "Illustrative: GPU cloud from $2.00/GPU-hr (H100), "
+            "colocation from $140/kW/month, build-to-suit negotiated per campus."
         ),
         "products": {
-            "ai_cloud": "GPU-as-a-service for AI training and inference (3.2 TB/s InfiniBand, NVIDIA H100 through GB300)",
-            "colocation": "High-density colocation with air, liquid, and direct-to-chip cooling (up to 200 kW/rack)",
-            "build_to_suit": "Dedicated campus builds on 2,000+ owned acres with 2.75 GW locked grid power in West Texas",
+            "ai_cloud": "GPU-as-a-service for AI training and inference (InfiniBand fabric, NVIDIA H100 through B200)",
+            "colocation": "High-density colocation with air and direct-to-chip liquid cooling (up to 150 kW/rack)",
+            "build_to_suit": "Dedicated campus builds on owned land with secured grid power",
         },
-        "gpu_models": ["H100", "H200", "B200", "B300", "GB300 NVL72"],
+        "gpu_models": ["H100", "H200", "B200"],
         "locations": [
-            "Childress, TX (750 MW)",
-            "Sweetwater, TX (2,000 MW — two sites)",
-            "Oklahoma (1,600 MW)",
-            "Prince George, BC (160 MW)",
-            "Mackenzie, BC",
-            "Canal Flats, BC (30 MW)",
+            "Northern Virginia (400 MW)",
+            "West Texas (600 MW, under construction)",
         ],
-        "cooling": ["air", "liquid (including direct-to-chip for Blackwell, up to 200 kW/rack)"],
+        "cooling": ["air", "liquid (direct-to-chip)"],
         "strengths": [
-            "4.5 GW secured grid-connected power across North America",
-            "$9.7B Microsoft contract — $1.94B annualized revenue, ~85% project margins",
-            "NVIDIA Preferred Partner with 10.9K+ GPUs deployed, scaling to 140K by end 2026",
-            "100% renewable energy across all facilities",
-            "Vertically integrated: own land, grid connections, substations, data centers, and GPUs",
-            "Low-cost power: $0.028/kWh at Childress (spot), ~$0.05/kWh all-in West Texas BTS",
-            "Public company (NASDAQ: IREN) with $2.8B cash and $9.2B+ total funding secured in FY26",
+            "1 GW of secured grid-connected power (illustrative)",
+            "Low delivered power cost from renewable-matched supply",
+            "Vertically integrated: land, power, facilities, and GPUs",
+            "Speed to deploy: campus energization in under 18 months",
         ],
         "weaknesses": [
-            "Revenue still transitioning from Bitcoin mining (Q2 FY26 revenue down 23% on BTC decline)",
-            "Execution risk: 140K GPU ramp across multiple simultaneous construction projects",
-            "High stock volatility (beta >2.5, 52-week range ~$5–$77)",
-            "Smaller operational footprint vs. Equinix/Digital Realty (810 MW operational of 4.5 GW secured)",
-            "Near-term customer concentration as Microsoft contract dominates revenue",
+            "Smaller operating footprint than the largest data center REITs",
+            "Revenue concentrated in a small number of anchor customers",
+            "Execution risk on a multi-site construction pipeline",
         ],
         "expansion_plans": (
-            "Sweetwater 1 (1.4 GW) energizing April 2026. "
-            "Sweetwater 2 (600 MW) energizing late 2027. "
-            "Oklahoma (1.6 GW) campus energizing 2028. "
-            "Childress Horizon 1–4 (200 MW IT load) under construction for Microsoft ($9.7B deal). "
-            "Targeting 140K GPUs and $3.4B ARR by end of calendar year 2026."
+            "Illustrative: second campus energizing next year; "
+            "targeting 60K GPUs deployed within 24 months."
         ),
     }
     COMPETITOR_SEGMENTS: dict[str, str] = {
@@ -185,32 +177,32 @@ except ImportError:
     SEGMENT_PROFILES: dict[str, dict[str, str]] = {
         "Neocloud": {
             "description": "GPU cloud providers selling compute-as-a-service to AI labs and enterprises",
-            "iren_positioning": "Iren supplies the infrastructure neoclouds run on — they are both customers and competitors",
+            "positioning": "The provider supplies the infrastructure neoclouds run on; they are both customers and competitors",
             "key_battleground": "GPU availability, NVIDIA allocation, pricing per GPU-hour, speed to deploy",
         },
         "Hyperscaler": {
             "description": "Mega-scale cloud platforms (AWS, GCP, Azure) with their own silicon and massive capex",
-            "iren_positioning": "Iren builds overflow capacity for hyperscalers when demand exceeds their own DC pipeline",
+            "positioning": "The provider builds overflow capacity when hyperscaler demand exceeds their own data center pipeline",
             "key_battleground": "Scale (GW-level power), speed to deployment, location near grid capacity",
         },
         "DC REIT": {
             "description": "Data center REITs with large portfolios of colocation and wholesale facilities",
-            "iren_positioning": "Iren differentiates on AI-ready high-density design and renewable energy cost advantage",
+            "positioning": "The provider differentiates on AI-ready high-density design and delivered power cost",
             "key_battleground": "Power density (kW/rack), campus scale, PUE, contract flexibility",
         },
         "Power-First": {
-            "description": "Energy-native data center developers building on cheap/renewable power",
-            "iren_positioning": "Direct competitors — Iren's renewable energy heritage is the same playbook",
+            "description": "Energy-native data center developers building on cheap or renewable power",
+            "positioning": "Direct competitors running the same energy-first playbook",
             "key_battleground": "Power cost ($/kWh), MW pipeline, construction speed, energy source",
         },
         "International": {
             "description": "Global conglomerates and international players entering the AI data center market",
-            "iren_positioning": "Iren competes on proximity to US demand centers and proven operational track record",
+            "positioning": "The provider competes on proximity to US demand centers and operating track record",
             "key_battleground": "Geography, regulatory approval, subsea connectivity, talent access",
         },
         "Miner-to-HPC": {
-            "description": "Bitcoin miners pivoting to AI/HPC data centers — same origin story as Iren",
-            "iren_positioning": "Direct peers with the same playbook. Iren differentiates on execution speed, renewable energy cost, and customer quality.",
+            "description": "Bitcoin miners pivoting to AI/HPC data centers on their existing power assets",
+            "positioning": "Peers with a similar power-first cost structure; the provider differentiates on execution track record and customer quality",
             "key_battleground": "Pivot execution speed, HPC customer contracts, power cost, GPU deployment timeline",
         },
     }

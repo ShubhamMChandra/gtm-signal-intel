@@ -35,7 +35,7 @@ from config import (
     CORS_ORIGINS,
     LOG_LEVEL,
     SIGNAL_TYPES,
-    IREN_BENCHMARK,
+    PROVIDER_PROFILE,
     COMPETITOR_SEGMENTS,
     COMPETITOR_SEGMENT_DEFAULT,
     SEGMENT_PROFILES,
@@ -62,7 +62,7 @@ from scoring.weights import SIGNAL_WEIGHTS
 from scoring.timing import TIMING_WINDOWS, get_action_insight, get_urgency
 from ai.brief_generator import generate_brief, generate_outreach_email, generate_battle_card
 from ai.client import get_ai_client, call_premium, call_with_fallback
-from ai.brief_generator import _build_iren_context, _funding_stage, PRODUCT_FIT_LABELS
+from ai.brief_generator import _build_provider_context, _funding_stage, PRODUCT_FIT_LABELS
 from ai.embeddings import deserialize_embedding, cosine_similarity
 
 init_db()
@@ -107,7 +107,7 @@ async def lifespan(app: FastAPI):
     scheduler.shutdown(wait=False)
 
 
-app = FastAPI(title="Iren Sales Intelligence API", version="1.0.0", lifespan=lifespan)
+app = FastAPI(title="GTM Signal Intelligence API", version="1.0.0", lifespan=lifespan)
 
 
 class RequestLogMiddleware(BaseHTTPMiddleware):
@@ -499,10 +499,10 @@ def list_competitors():
             d["events"] = [_event_dict(e) for e in events]
             result.append(d)
 
-        iren = dict(IREN_BENCHMARK)
-        iren["segment"] = _derive_segment(iren["industry"])
+        provider = dict(PROVIDER_PROFILE)
+        provider["segment"] = _derive_segment(provider["industry"])
 
-        return {"iren": iren, "competitors": result}
+        return {"provider": provider, "competitors": result}
     finally:
         session.close()
 
@@ -583,7 +583,7 @@ def compete_landscape():
             segments.append({
                 "name": seg_name,
                 "description": profile["description"],
-                "iren_positioning": profile["iren_positioning"],
+                "positioning": profile["positioning"],
                 "key_battleground": profile["key_battleground"],
                 "competitor_count": agg["count"],
                 "total_capacity_mw": agg["total_capacity_mw"],
@@ -634,11 +634,11 @@ def compete_landscape():
             })
         activity_feed.sort(key=lambda x: x["detected_at"] or "", reverse=True)
 
-        iren = dict(IREN_BENCHMARK)
-        iren["segment"] = _derive_segment(iren.get("industry"))
+        provider = dict(PROVIDER_PROFILE)
+        provider["segment"] = _derive_segment(provider.get("industry"))
 
         return {
-            "iren": iren,
+            "provider": provider,
             "competitors": enriched,
             "segments": segments,
             "activity_feed": activity_feed[:50],
@@ -693,11 +693,11 @@ def prospect_competitive_context(prospect_id: int):
                     "detected_at": e.detected_at.isoformat() if e.detected_at else None,
                 })
 
-        iren_edge = ""
+        provider_edge = ""
         for seg in relevant_segments:
             profile = SEGMENT_PROFILES.get(seg)
             if profile:
-                iren_edge = profile["iren_positioning"]
+                provider_edge = profile["positioning"]
                 break
 
         return {
@@ -705,7 +705,7 @@ def prospect_competitive_context(prospect_id: int):
             "product_fit": pfit,
             "likely_competitors": likely,
             "recent_moves": recent_moves,
-            "iren_edge": iren_edge,
+            "provider_edge": provider_edge,
         }
     finally:
         session.close()
@@ -1027,11 +1027,11 @@ def _competitive_pulse(session) -> dict:
 try:
     from private.prompts import build_digest_prompt as _private_digest
     from private.prompts import MORNING_FRAME, AFTERNOON_FRAME, DIGEST_REWRITE_PROMPT
-    DIGEST_SYSTEM_MSG = _private_digest(_build_iren_context())
+    DIGEST_SYSTEM_MSG = _private_digest(_build_provider_context())
 except ImportError:
     DIGEST_SYSTEM_MSG = (
         "You are a market intelligence analyst producing a daily signal digest.\n\n"
-        + _build_iren_context()
+        + _build_provider_context()
         + "\n\n"
         "Produce 3-4 themed sections covering pipeline movement, signals, and competitive "
         "landscape. Name names, cite engagement windows, and cover the full funnel."

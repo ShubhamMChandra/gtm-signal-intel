@@ -178,7 +178,7 @@ class TestApiRoutes:
 
     def test_app_has_title(self, app):
         assert app.title
-        assert "Iren" in app.title
+        assert "Signal Intelligence" in app.title
 
     def test_app_has_version(self, app):
         assert app.version
