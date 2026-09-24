@@ -29,8 +29,8 @@ export function AppSidebar() {
     <Sidebar collapsible="icon" className="border-r border-sidebar-border">
       <SidebarHeader className="p-4">
         <Link href="/" className="flex flex-col gap-0.5 group-data-[collapsible=icon]:items-center">
-          <span className="font-bold tracking-tight">IREN</span>
-          <span className="text-xs text-muted-foreground group-data-[collapsible=icon]:hidden">Sales Intelligence</span>
+          <span className="font-bold tracking-tight">GTM</span>
+          <span className="text-xs text-muted-foreground group-data-[collapsible=icon]:hidden">Signal Intelligence</span>
         </Link>
       </SidebarHeader>
       <SidebarContent>

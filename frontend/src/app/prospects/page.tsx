@@ -604,8 +604,8 @@ function ProspectsPageInner() {
                     <Separator />
                     <div>
                       <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Competitive Context</h3>
-                      {compContext.iren_edge && (
-                        <p className="text-xs text-[#22c55e] mb-3 italic">{compContext.iren_edge}</p>
+                      {compContext.provider_edge && (
+                        <p className="text-xs text-[#22c55e] mb-3 italic">{compContext.provider_edge}</p>
                       )}
                       <div className="space-y-1.5">
                         {compContext.likely_competitors.slice(0, 5).map((lc) => (

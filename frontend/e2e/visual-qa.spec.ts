@@ -55,7 +55,7 @@ const MOCK_DASHBOARD: Record<string, unknown> = {
         title: "CEO",
         role_type: "economic",
         seniority: "C-Suite",
-        recommended_approach: "Executive briefing on Iren capacity",
+        recommended_approach: "Executive briefing on our capacity",
         last_contacted: null,
       },
       score_breakdown: { fundraising: 10, funding_completed: 20, hiring: 18, ai_initiative: 15, cloud_spend: 12, outgrowing: 12 },
@@ -157,8 +157,8 @@ const MOCK_PROSPECTS = [
 ]
 
 const MOCK_COMPETE = {
-  iren: {
-    name: "Iren", industry: "AI Data Center / Energy", capacity_mw: 4500, gpu_count: 10900, is_public: true, ticker: "IREN", hq_location: "Sydney, Australia", website: "https://iren.com", segment: "Data Center",
+  provider: {
+    name: "Sample AI Cloud Provider", short_name: "Sample Provider", industry: "AI Infrastructure / Data Center", capacity_mw: 1000, gpu_count: 20000, is_public: false, ticker: "", hq_location: "Ashburn, VA", website: "", segment: "Data Center",
   },
   competitors: [
     {
@@ -225,6 +225,9 @@ async function mockAllAPIs(page: Page) {
       body: JSON.stringify({ ...MOCK_COMPETE, segments: [], activity_feed: [] }),
     })
   )
+  await page.route("**/api/compete/deal-threats", (route) =>
+    route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ threats: [], total_at_risk: 0 }) })
+  )
   await page.route("**/api/signals**", (route) =>
     route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify([]) })
   )
@@ -285,6 +288,9 @@ test.describe("Visual QA", () => {
     await page.waitForLoadState("networkidle")
     await expect(page.locator("body")).toBeVisible()
 
+    // Competitors are listed on the Directory tab; Activity Feed is the default.
+    await page.getByRole("tab", { name: /Directory/ }).click()
+    await expect(page.getByText("Sample AI Cloud Provider")).toBeVisible({ timeout: 10000 })
     await expect(page.getByText("CoreWeave").first()).toBeVisible({ timeout: 10000 })
 
     await page.screenshot({

@@ -123,7 +123,7 @@ export default function CompetePage() {
   }, [])
 
   const competitors = useMemo(() => data?.competitors ?? [], [data?.competitors])
-  const iren = data?.iren ?? null
+  const provider = data?.provider ?? null
   const activityFeed = useMemo(() => data?.activity_feed ?? [], [data?.activity_feed])
 
   const eventsThisWeek = activityFeed.filter((item) => {
@@ -160,9 +160,9 @@ export default function CompetePage() {
 
   const maxCapacity = useMemo(() => {
     const all = [...competitors.map((c) => c.capacity_mw ?? 0)]
-    if (iren?.capacity_mw) all.push(iren.capacity_mw)
+    if (provider?.capacity_mw) all.push(provider.capacity_mw)
     return Math.max(...all, 1)
-  }, [competitors, iren])
+  }, [competitors, provider])
 
   const segmentCounts = useMemo(() => {
     const counts: Record<string, number> = {}
@@ -413,22 +413,24 @@ export default function CompetePage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {iren && (
+                {provider && (
                   <TableRow className="border-[#22c55e]/20 bg-[#22c55e]/4 hover:bg-[#22c55e]/7">
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <span className="font-semibold text-[#22c55e]">{iren.name}</span>
-                        <Badge variant="outline" className="text-[10px] font-mono border-[#22c55e]/30 text-[#22c55e]">
-                          {iren.ticker}
-                        </Badge>
+                        <span className="font-semibold text-[#22c55e]">{provider.name}</span>
+                        {provider.ticker && (
+                          <Badge variant="outline" className="text-[10px] font-mono border-[#22c55e]/30 text-[#22c55e]">
+                            {provider.ticker}
+                          </Badge>
+                        )}
                       </div>
                     </TableCell>
-                    <TableCell><SegmentBadge segment={iren.segment} /></TableCell>
+                    <TableCell><SegmentBadge segment={provider.segment} /></TableCell>
                     <TableCell>
                       <Badge variant="outline" className="text-[10px] text-[#22c55e] border-[#22c55e]/30">YOU</Badge>
                     </TableCell>
                     <TableCell className="hidden md:table-cell">
-                      {iren.capacity_mw ? <CapacityBar mw={iren.capacity_mw} maxMw={maxCapacity} /> : "—"}
+                      {provider.capacity_mw ? <CapacityBar mw={provider.capacity_mw} maxMw={maxCapacity} /> : "—"}
                     </TableCell>
                     <TableCell className="text-right text-muted-foreground hidden md:table-cell">—</TableCell>
                   </TableRow>
@@ -498,21 +500,21 @@ export default function CompetePage() {
               </SheetHeader>
 
               <div className="space-y-6 pt-6">
-                {/* vs Iren quick comparison */}
-                {iren && (
+                {/* vs provider quick comparison */}
+                {provider && (
                   <Card className="border-[#22c55e]/20 bg-[#22c55e]/4">
                     <CardContent className="p-3">
-                      <p className="text-[10px] font-semibold uppercase tracking-wider text-[#22c55e] mb-2">vs Iren</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-wider text-[#22c55e] mb-2">vs {provider.short_name ?? provider.name}</p>
                       <div className="grid grid-cols-3 gap-2 text-center">
                         <div>
                           <p className="text-[10px] text-muted-foreground">MW</p>
                           <p className="text-xs font-medium">{selected.capacity_mw?.toLocaleString() ?? "—"}</p>
-                          <p className="text-[10px] text-[#22c55e]">{iren.capacity_mw?.toLocaleString() ?? "—"}</p>
+                          <p className="text-[10px] text-[#22c55e]">{provider.capacity_mw?.toLocaleString() ?? "—"}</p>
                         </div>
                         <div>
                           <p className="text-[10px] text-muted-foreground">GPUs</p>
                           <p className="text-xs font-medium">{selected.gpu_count?.toLocaleString() ?? "—"}</p>
-                          <p className="text-[10px] text-[#22c55e]">{iren.gpu_count?.toLocaleString() ?? "—"}</p>
+                          <p className="text-[10px] text-[#22c55e]">{provider.gpu_count?.toLocaleString() ?? "—"}</p>
                         </div>
                         <div>
                           <p className="text-[10px] text-muted-foreground">Activity</p>
