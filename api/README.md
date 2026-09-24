@@ -1,6 +1,6 @@
 # API (FastAPI)
 
-Backend for Iren Sales Intelligence. Deployed on Railway.
+Backend for GTM Signal Intelligence. Deployed on Railway.
 
 ## Railway setup (one-time)
 
@@ -24,7 +24,7 @@ Or from this directory:
 railway up
 ```
 
-API URL: **https://api-production-fdb3.up.railway.app** (or your generated domain from `railway domain`).
+API URL: **https://api-production-xxx.up.railway.app** (or your generated domain from `railway domain`).
 
 ## Full stack (API + frontend) on Railway
 
