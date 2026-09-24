@@ -3,14 +3,14 @@ import { expect, test, type Page } from "@playwright/test"
 const MOCK_PROVIDER = {
   name: "Sample AI Cloud Provider",
   short_name: "Sample Provider",
-  industry: "AI Infrastructure / Data Center",
+  industry: "AI Data Center / Energy",
   capacity_mw: 1000,
   gpu_count: 20000,
   is_public: false,
   ticker: "",
   hq_location: "Ashburn, VA",
   website: "",
-  segment: "Data Center",
+  segment: "Power-First",
 }
 
 const MOCK_COMPETITORS = [
