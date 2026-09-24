@@ -427,7 +427,7 @@ The sitemap gives you a complete inventory of every press release ever published
 
 ---
 
-## Recommended Collection Strategy for Iren
+## Recommended Collection Strategy
 
 ### Tier 1: Automated (build a collector)
 1. **RSS feed polling** — Check `vedp.org/rss.xml` daily, filter for press releases, extract investment/jobs/locality with regex

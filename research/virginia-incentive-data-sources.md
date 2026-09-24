@@ -558,7 +558,7 @@ def fetch_henrico_permits_page(year: int, month: str) -> str | None:
 
 ### Recommended Collection Strategy
 
-For Iren's collector pipeline, prioritize:
+For the collector pipeline, prioritize:
 
 1. **New collector: `loudoun_dc_collector.py`** — poll the BuildOut_LandUse endpoint weekly for `COM_DATA_CENTER` changes (new records, status changes, sq ft changes). This is your single best structured data source.
 
