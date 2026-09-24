@@ -331,7 +331,7 @@ PROSPECTS = [
         "name": "Microsoft",
         "industry": "Cloud / AI",
         "website": "https://microsoft.com",
-        "description": "Azure AI and OpenAI partnership driving massive DC expansion. Already an Iren customer.",
+        "description": "Azure AI and OpenAI partnership driving massive DC expansion. Signs multi-billion capacity contracts with neoclouds and power-first providers.",
         "hq_location": "Redmond, WA",
         "employee_count": 228000,
         "is_public": True,
@@ -4027,6 +4027,9 @@ PROSPECTS = [
     },
 ]
 
+# threat_level is relative to the configured provider profile. Shipped values
+# assume the sample profile (a power-first AI cloud, colocation and
+# build-to-suit provider). Re-rate them for your own deployment.
 COMPETITORS = [
     # --- Neoclouds ---
     {
@@ -4049,7 +4052,7 @@ COMPETITORS = [
         "name": "Crusoe Energy",
         "industry": "AI Cloud / Energy",
         "website": "https://crusoe.ai",
-        "description": "Vertically integrated AI cloud with ~3.4 GW power pipeline. Direct Iren competitor model.",
+        "description": "Vertically integrated AI cloud with ~3.4 GW power pipeline. The energy-first model.",
         "hq_location": "San Francisco, CA",
         "is_public": False,
         "capacity_mw": 600,
@@ -4252,7 +4255,7 @@ COMPETITORS = [
         "weaknesses": '["India-focused — not competing directly in U.S. market", "Governance/fraud allegations (Hindenburg) create reputational risk", "History of ambitious announcements with delayed delivery"]',
         "threat_level": "low",
     },
-    # --- Miner-to-HPC (same pivot as Iren) ---
+    # --- Miner-to-HPC (Bitcoin miners pivoting to AI/HPC) ---
     {
         "name": "Hut 8",
         "industry": "Mining → HPC / Data Center",
@@ -4393,63 +4396,65 @@ COMPETITORS = [
 ]
 
 
-# Persona contacts seeded per company type.
+# Persona contacts seeded per company type: the roles a rep should reach and
+# how to open with each. Names are left blank on purpose; fill them from your
+# own CRM rather than shipping guessed names against real companies.
 # Each entry: (company_name, title, role_type, seniority, name, recommended_approach)
 CONTACTS = [
     # --- AI Labs (OpenAI, Anthropic, xAI, Mistral) ---
-    ("OpenAI", "VP Infrastructure", "technical", "vp", "David Chen", "Lead with GPU availability (H200/B200), cluster scale, and network topology"),
-    ("OpenAI", "CFO", "economic", "c_suite", "Sarah Kim", "Lead with TCO comparison vs. hyperscalers, capex vs. opex flexibility"),
-    ("OpenAI", "Head of ML Infrastructure", "champion", "director", "Marcus Rivera", "Lead with bare-metal performance benchmarks and NVIDIA partnership"),
-    ("OpenAI", "Chief Scientist", "technical", "c_suite", "James Wu", "Lead with IREN's training cluster track record and renewable energy story"),
+    ("OpenAI", "VP Infrastructure", "technical", "vp", "", "Lead with GPU availability (H200/B200), cluster scale, and network topology"),
+    ("OpenAI", "CFO", "economic", "c_suite", "", "Lead with TCO comparison vs. hyperscalers, capex vs. opex flexibility"),
+    ("OpenAI", "Head of ML Infrastructure", "champion", "director", "", "Lead with bare-metal performance benchmarks and NVIDIA partnership"),
+    ("OpenAI", "Chief Scientist", "technical", "c_suite", "", "Lead with our training cluster track record and energy cost story"),
 
-    ("Anthropic", "VP Infrastructure", "technical", "vp", "Rachel Torres", "Lead with GPU availability (H200/B200), cluster scale, and network topology"),
-    ("Anthropic", "CFO", "economic", "c_suite", "Michael Park", "Lead with TCO comparison vs. hyperscalers, capex vs. opex flexibility"),
-    ("Anthropic", "Head of Platform Engineering", "champion", "director", "Lisa Zhang", "Lead with bare-metal performance benchmarks and NVIDIA partnership"),
-    ("Anthropic", "CTO", "technical", "c_suite", "Kevin Huang", "Lead with IREN's training cluster track record and renewable energy story"),
+    ("Anthropic", "VP Infrastructure", "technical", "vp", "", "Lead with GPU availability (H200/B200), cluster scale, and network topology"),
+    ("Anthropic", "CFO", "economic", "c_suite", "", "Lead with TCO comparison vs. hyperscalers, capex vs. opex flexibility"),
+    ("Anthropic", "Head of Platform Engineering", "champion", "director", "", "Lead with bare-metal performance benchmarks and NVIDIA partnership"),
+    ("Anthropic", "CTO", "technical", "c_suite", "", "Lead with our training cluster track record and energy cost story"),
 
-    ("xAI", "VP Infrastructure", "technical", "vp", "Alex Novak", "Lead with GPU availability (H200/B200), cluster scale, and network topology"),
-    ("xAI", "Head of ML Infrastructure", "champion", "director", "Priya Sharma", "Lead with bare-metal performance benchmarks and NVIDIA partnership"),
-    ("xAI", "CFO", "economic", "c_suite", "Thomas Reed", "Lead with TCO comparison vs. hyperscalers, capex vs. opex flexibility"),
+    ("xAI", "VP Infrastructure", "technical", "vp", "", "Lead with GPU availability (H200/B200), cluster scale, and network topology"),
+    ("xAI", "Head of ML Infrastructure", "champion", "director", "", "Lead with bare-metal performance benchmarks and NVIDIA partnership"),
+    ("xAI", "CFO", "economic", "c_suite", "", "Lead with TCO comparison vs. hyperscalers, capex vs. opex flexibility"),
 
-    ("Mistral AI", "VP Infrastructure", "technical", "vp", "Jean-Pierre Moreau", "Lead with GPU availability (H200/B200), cluster scale, and network topology"),
-    ("Mistral AI", "CTO", "technical", "c_suite", "Arthur Mensch", "Lead with IREN's training cluster track record and renewable energy story"),
-    ("Mistral AI", "CFO", "economic", "c_suite", "Claire Dubois", "Lead with TCO comparison vs. hyperscalers, capex vs. opex flexibility"),
+    ("Mistral AI", "VP Infrastructure", "technical", "vp", "", "Lead with GPU availability (H200/B200), cluster scale, and network topology"),
+    ("Mistral AI", "CTO", "technical", "c_suite", "", "Lead with our training cluster track record and energy cost story"),
+    ("Mistral AI", "CFO", "economic", "c_suite", "", "Lead with TCO comparison vs. hyperscalers, capex vs. opex flexibility"),
 
     # --- Enterprise (Palantir, Snowflake, ServiceNow, Salesforce) ---
-    ("Palantir Technologies", "VP Cloud Infrastructure", "technical", "vp", "Daniel Foster", "Lead with colocation flexibility and hybrid cloud connectivity"),
-    ("Palantir Technologies", "CTO", "technical", "c_suite", "Shyam Sankar", "Lead with data sovereignty and compliance capabilities"),
-    ("Palantir Technologies", "Head of Procurement", "procurement", "director", "Jennifer Walsh", "Lead with SLA guarantees and flexible contract terms"),
-    ("Palantir Technologies", "VP AI/ML", "champion", "vp", "Robert Kim", "Lead with GPU instance availability and managed services"),
+    ("Palantir Technologies", "VP Cloud Infrastructure", "technical", "vp", "", "Lead with colocation flexibility and hybrid cloud connectivity"),
+    ("Palantir Technologies", "CTO", "technical", "c_suite", "", "Lead with data sovereignty and compliance capabilities"),
+    ("Palantir Technologies", "Head of Procurement", "procurement", "director", "", "Lead with SLA guarantees and flexible contract terms"),
+    ("Palantir Technologies", "VP AI/ML", "champion", "vp", "", "Lead with GPU instance availability and managed services"),
 
-    ("Snowflake", "VP Cloud Infrastructure", "technical", "vp", "Brian Mitchell", "Lead with colocation flexibility and hybrid cloud connectivity"),
-    ("Snowflake", "CTO", "technical", "c_suite", "Benoit Dageville", "Lead with data sovereignty and compliance capabilities"),
-    ("Snowflake", "Head of Procurement", "procurement", "director", "Amy Richardson", "Lead with SLA guarantees and flexible contract terms"),
+    ("Snowflake", "VP Cloud Infrastructure", "technical", "vp", "", "Lead with colocation flexibility and hybrid cloud connectivity"),
+    ("Snowflake", "CTO", "technical", "c_suite", "", "Lead with data sovereignty and compliance capabilities"),
+    ("Snowflake", "Head of Procurement", "procurement", "director", "", "Lead with SLA guarantees and flexible contract terms"),
 
-    ("ServiceNow", "VP Cloud Infrastructure", "technical", "vp", "Eric Thompson", "Lead with colocation flexibility and hybrid cloud connectivity"),
-    ("ServiceNow", "CTO", "technical", "c_suite", "Pat Casey", "Lead with data sovereignty and compliance capabilities"),
-    ("ServiceNow", "VP AI/ML", "champion", "vp", "Dorit Zilbershot", "Lead with GPU instance availability and managed services"),
+    ("ServiceNow", "VP Cloud Infrastructure", "technical", "vp", "", "Lead with colocation flexibility and hybrid cloud connectivity"),
+    ("ServiceNow", "CTO", "technical", "c_suite", "", "Lead with data sovereignty and compliance capabilities"),
+    ("ServiceNow", "VP AI/ML", "champion", "vp", "", "Lead with GPU instance availability and managed services"),
 
-    ("Salesforce", "VP Cloud Infrastructure", "technical", "vp", "Mark Johnson", "Lead with colocation flexibility and hybrid cloud connectivity"),
-    ("Salesforce", "CTO", "technical", "c_suite", "Parker Harris", "Lead with data sovereignty and compliance capabilities"),
-    ("Salesforce", "Head of Procurement", "procurement", "director", "Linda Chen", "Lead with SLA guarantees and flexible contract terms"),
+    ("Salesforce", "VP Cloud Infrastructure", "technical", "vp", "", "Lead with colocation flexibility and hybrid cloud connectivity"),
+    ("Salesforce", "CTO", "technical", "c_suite", "", "Lead with data sovereignty and compliance capabilities"),
+    ("Salesforce", "Head of Procurement", "procurement", "director", "", "Lead with SLA guarantees and flexible contract terms"),
 
     # --- Hyperscalers (Microsoft, Meta) ---
-    ("Microsoft", "Director of DC Strategy", "technical", "director", "Nicole Adams", "Lead with site availability, power scale (GW+), and speed to deployment"),
-    ("Microsoft", "VP Infrastructure", "technical", "vp", "Rani Borkar", "Lead with cooling efficiency, power density, and custom build capabilities"),
-    ("Microsoft", "Head of Supply Chain", "procurement", "director", "Steve Collins", "Lead with IREN's vertical integration and construction timeline advantages"),
+    ("Microsoft", "Director of DC Strategy", "technical", "director", "", "Lead with site availability, power scale (GW+), and speed to deployment"),
+    ("Microsoft", "VP Infrastructure", "technical", "vp", "", "Lead with cooling efficiency, power density, and custom build capabilities"),
+    ("Microsoft", "Head of Supply Chain", "procurement", "director", "", "Lead with our vertical integration and construction timeline advantages"),
 
-    ("Meta Platforms", "Director of DC Strategy", "technical", "director", "Rachel Lee", "Lead with site availability, power scale (GW+), and speed to deployment"),
-    ("Meta Platforms", "VP Infrastructure", "technical", "vp", "Alexis Bjorlin", "Lead with cooling efficiency, power density, and custom build capabilities"),
-    ("Meta Platforms", "Head of Supply Chain", "procurement", "director", "Greg Martinez", "Lead with IREN's vertical integration and construction timeline advantages"),
+    ("Meta Platforms", "Director of DC Strategy", "technical", "director", "", "Lead with site availability, power scale (GW+), and speed to deployment"),
+    ("Meta Platforms", "VP Infrastructure", "technical", "vp", "", "Lead with cooling efficiency, power density, and custom build capabilities"),
+    ("Meta Platforms", "Head of Supply Chain", "procurement", "director", "", "Lead with our vertical integration and construction timeline advantages"),
 
     # --- Build-to-Suit (Tesla, Apple) ---
-    ("Tesla", "Director of DC Strategy", "technical", "director", "Andrew Park", "Lead with site availability, power scale (GW+), and speed to deployment"),
-    ("Tesla", "VP AI Infrastructure", "technical", "vp", "Ganesh Venkataramanan", "Lead with cooling efficiency, power density, and custom build capabilities"),
-    ("Tesla", "Head of Supply Chain", "procurement", "director", "Sarah Gonzalez", "Lead with IREN's vertical integration and construction timeline advantages"),
+    ("Tesla", "Director of DC Strategy", "technical", "director", "", "Lead with site availability, power scale (GW+), and speed to deployment"),
+    ("Tesla", "VP AI Infrastructure", "technical", "vp", "", "Lead with cooling efficiency, power density, and custom build capabilities"),
+    ("Tesla", "Head of Supply Chain", "procurement", "director", "", "Lead with our vertical integration and construction timeline advantages"),
 
-    ("Apple", "Director of DC Strategy", "technical", "director", "Chris Morgan", "Lead with site availability, power scale (GW+), and speed to deployment"),
-    ("Apple", "VP Infrastructure", "technical", "vp", "David Smoley", "Lead with cooling efficiency, power density, and custom build capabilities"),
-    ("Apple", "Head of Procurement", "procurement", "director", "Karen Liu", "Lead with IREN's vertical integration and construction timeline advantages"),
+    ("Apple", "Director of DC Strategy", "technical", "director", "", "Lead with site availability, power scale (GW+), and speed to deployment"),
+    ("Apple", "VP Infrastructure", "technical", "vp", "", "Lead with cooling efficiency, power density, and custom build capabilities"),
+    ("Apple", "Head of Procurement", "procurement", "director", "", "Lead with our vertical integration and construction timeline advantages"),
 ]
 
 
