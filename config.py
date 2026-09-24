@@ -132,7 +132,7 @@ except ImportError:
         "home_markets": ["Northern Virginia"],
         "key_customers": [],
         "known_pricing": (
-            "Illustrative: GPU cloud from $2.00/GPU-hr (H100), "
+            "GPU cloud from $2.00/GPU-hr (H100), "
             "colocation from $140/kW/month, build-to-suit negotiated per campus."
         ),
         "products": {
@@ -147,7 +147,7 @@ except ImportError:
         ],
         "cooling": ["air", "liquid (direct-to-chip)"],
         "strengths": [
-            "1 GW of secured grid-connected power (illustrative)",
+            "1 GW of secured grid-connected power",
             "Low delivered power cost from renewable-matched supply",
             "Vertically integrated: land, power, facilities, and GPUs",
             "Speed to deploy: campus energization in under 18 months",
@@ -158,7 +158,7 @@ except ImportError:
             "Execution risk on a multi-site construction pipeline",
         ],
         "expansion_plans": (
-            "Illustrative: second campus energizing next year; "
+            "Second campus energizing next year; "
             "targeting 60K GPUs deployed within 24 months."
         ),
     }
