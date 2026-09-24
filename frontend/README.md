@@ -1,6 +1,6 @@
-# Iren Sales Intelligence — Frontend
+# GTM Signal Intelligence: Frontend
 
-Next.js frontend for the Iren Sales Intelligence Platform. Connects to the FastAPI backend at `http://localhost:8000`.
+Next.js frontend for the GTM Signal Intelligence platform. Connects to the FastAPI backend at `http://localhost:8000`.
 
 ## Pages
 

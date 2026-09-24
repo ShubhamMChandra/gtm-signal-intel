@@ -11,8 +11,8 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
 export const metadata: Metadata = {
-  title: "Iren Sales Intelligence",
-  description: "Sales intelligence platform for Iren's commercial team",
+  title: "GTM Signal Intelligence",
+  description: "Signal-driven GTM intelligence for AI-infrastructure providers",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

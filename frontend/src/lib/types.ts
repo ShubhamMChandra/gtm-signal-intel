@@ -123,8 +123,9 @@ export interface Competitor {
   events: CompetitorEvent[]
 }
 
-export interface IrenBenchmark {
+export interface ProviderProfile {
   name: string
+  short_name?: string
   industry: string
   capacity_mw: number | null
   gpu_count: number | null
@@ -133,6 +134,7 @@ export interface IrenBenchmark {
   hq_location: string
   website: string
   segment: string
+  home_markets?: string[]
   key_customers?: string[]
   known_pricing?: string
   strengths?: string[]
@@ -143,7 +145,7 @@ export interface IrenBenchmark {
 export interface SegmentProfile {
   name: string
   description: string
-  iren_positioning: string
+  positioning: string
   key_battleground: string
   competitor_count: number
   total_capacity_mw: number
@@ -161,14 +163,14 @@ export interface ActivityFeedItem {
 }
 
 export interface LandscapeData {
-  iren: IrenBenchmark
+  provider: ProviderProfile
   competitors: Competitor[]
   segments: SegmentProfile[]
   activity_feed: ActivityFeedItem[]
 }
 
 export interface CompetePageData {
-  iren: IrenBenchmark
+  provider: ProviderProfile
   competitors: Competitor[]
 }
 
@@ -190,7 +192,7 @@ export interface CompetitiveContext {
     title: string
     detected_at: string | null
   }[]
-  iren_edge: string
+  provider_edge: string
 }
 
 export interface DealThreat {
