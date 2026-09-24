@@ -224,7 +224,7 @@ A rep's morning with this platform:
 | **OpenRouter** over direct APIs | Model flexibility. Switch between Kimi K2, Gemini Flash, Opus 4.6, or any model by changing an env var. No vendor lock-in. |
 | **Ollama** for embeddings | Zero cost, local execution, no data leaves the machine. Powers semantic dedup and search without API spend. |
 | **Keyword fallbacks everywhere** | Every AI function works without an API key. The platform is fully useful with zero LLM budget. |
-| **Free data sources only** | 15 collectors, all public APIs or RSS feeds. No Crunchbase, no ZoomInfo, no paid subscriptions. |
+| **Free data sources only** | 19 collectors, all public APIs or RSS feeds. No Crunchbase, no ZoomInfo, no paid subscriptions. |
 | **Recency decay over raw counts** | Signals lose relevance over time. A scoring model that reflects this surfaces timing, not just volume. |
 | **Product data in config, not prompts** | `PROVIDER_PROFILE` stores the provider's capacity, products, GPUs, locations, strengths, weaknesses. Every prompt reads from it via `_build_provider_context()`. Swap the profile (`private/provider_config.py`) and every brief, email and battle card follows. |
 | **Strict fallback direction** | Premium → Analysis → Bulk → keywords. Never escalates upward on failure. Predictable cost ceiling. |
