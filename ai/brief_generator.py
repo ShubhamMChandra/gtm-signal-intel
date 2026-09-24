@@ -9,8 +9,8 @@ from ai.client import get_ai_client, call_with_fallback
 from config import (
     COMPETITOR_SEGMENTS,
     COMPETITOR_SEGMENT_DEFAULT,
-    IREN_BENCHMARK,
     PRODUCT_FIT_TO_SEGMENTS,
+    PROVIDER_PROFILE,
     SEGMENT_PROFILES,
 )
 from database.db import get_session
@@ -24,9 +24,9 @@ PRODUCT_FIT_LABELS: dict[str, str] = {
 }
 
 
-def _build_iren_context() -> str:
-    """Format IREN_BENCHMARK into the context block every prompt needs."""
-    b = IREN_BENCHMARK
+def _build_provider_context() -> str:
+    """Format PROVIDER_PROFILE into the context block every prompt needs."""
+    b = PROVIDER_PROFILE
     products = b.get("products", {})
     gpus = ", ".join(b.get("gpu_models", []))
     locations = ", ".join(b.get("locations", []))
@@ -38,7 +38,7 @@ def _build_iren_context() -> str:
     exchange = b.get("exchange", "")
     ticker_str = f" ({exchange}: {ticker})" if exchange and ticker else ""
 
-    lines = [f"ABOUT IREN{ticker_str}:"]
+    lines = [f"ABOUT {b['name'].upper()}{ticker_str}:"]
     if products.get("ai_cloud"):
         lines.append(f"  AI Cloud: {products['ai_cloud']} ({gpus})")
     if products.get("colocation"):
@@ -101,26 +101,26 @@ try:
 except ImportError:
     _HAS_PRIVATE = False
 
-_iren_ctx = _build_iren_context()
+_provider_ctx = _build_provider_context()
 
 if _HAS_PRIVATE:
-    BRIEF_SYSTEM_PROMPT = _private_brief(_iren_ctx)
-    EMAIL_SYSTEM_PROMPT = _private_email(_iren_ctx)
-    BATTLECARD_SYSTEM_PROMPT = _private_battlecard(_iren_ctx)
+    BRIEF_SYSTEM_PROMPT = _private_brief(_provider_ctx)
+    EMAIL_SYSTEM_PROMPT = _private_email(_provider_ctx)
+    BATTLECARD_SYSTEM_PROMPT = _private_battlecard(_provider_ctx)
 else:
     BRIEF_SYSTEM_PROMPT = (
         "You are a sales strategist preparing a brief for a prospect meeting.\n\n"
-        + _iren_ctx + "\n\n"
+        + _provider_ctx + "\n\n"
         "Provide a concise analysis with talking points, competitive context, and urgency."
     )
     EMAIL_SYSTEM_PROMPT = (
         "You are a BD lead drafting a cold outreach email to a prospect.\n\n"
-        + _iren_ctx + "\n\n"
+        + _provider_ctx + "\n\n"
         "Reference a recent signal, explain relevance, and close with a soft ask."
     )
     BATTLECARD_SYSTEM_PROMPT = (
         "You are a competitive intelligence analyst creating a battle card.\n\n"
-        + _iren_ctx + "\n\n"
+        + _provider_ctx + "\n\n"
         "Provide competitor snapshot, where we win, where they win, deal scenarios, "
         "and objection handling."
     )
@@ -360,18 +360,18 @@ def generate_battle_card(competitor_id: int) -> str:
             context_lines.append("")
             context_lines.append(f"COMPETITOR SEGMENT: {seg}")
             context_lines.append(f"  {profile['description']}")
-            context_lines.append(f"  Iren positioning: {profile['iren_positioning']}")
+            context_lines.append(f"  Positioning: {profile['positioning']}")
             context_lines.append(f"  Key battleground: {profile['key_battleground']}")
 
-        iren_strengths = IREN_BENCHMARK.get("strengths", [])
-        iren_weaknesses = IREN_BENCHMARK.get("weaknesses", [])
-        if iren_strengths or iren_weaknesses:
+        provider_strengths = PROVIDER_PROFILE.get("strengths", [])
+        provider_weaknesses = PROVIDER_PROFILE.get("weaknesses", [])
+        if provider_strengths or provider_weaknesses:
             context_lines.append("")
-            context_lines.append("IREN SELF-ASSESSMENT:")
-            if iren_strengths:
-                context_lines.append(f"  Strengths: {'; '.join(iren_strengths)}")
-            if iren_weaknesses:
-                context_lines.append(f"  Weaknesses: {'; '.join(iren_weaknesses)}")
+            context_lines.append("PROVIDER SELF-ASSESSMENT:")
+            if provider_strengths:
+                context_lines.append(f"  Strengths: {'; '.join(provider_strengths)}")
+            if provider_weaknesses:
+                context_lines.append(f"  Weaknesses: {'; '.join(provider_weaknesses)}")
 
         if signals:
             context_lines.append("\nRECENT ACTIVITY:")

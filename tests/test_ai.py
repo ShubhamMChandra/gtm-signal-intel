@@ -15,13 +15,13 @@ from ai.summarizer import summarize_article, _fallback_summary
 from ai.signal_extractor import extract_signal, _fallback_extraction
 from ai.brief_generator import (
     _fallback_brief,
-    _build_iren_context,
+    _build_provider_context,
     _build_prospect_context,
     _funding_stage,
     PRODUCT_FIT_LABELS,
 )
 from ai.client import call_premium
-from config import IREN_BENCHMARK, PRODUCT_FIT_TO_SEGMENTS, COMPETITOR_SEGMENTS
+from config import PROVIDER_PROFILE, PRODUCT_FIT_TO_SEGMENTS, COMPETITOR_SEGMENTS
 from database.models import Company, CompetitorEvent, Signal, ProspectScore
 
 
@@ -176,23 +176,31 @@ class TestBuildContext:
             assert "PROSPECT: TestCo AI" in ctx
 
 
-# ── Iren context builder ────────────────────────────────────────
+# ── Provider context builder ────────────────────────────────────
 
 
-class TestBuildIrenContext:
-    def test_includes_ticker(self):
-        ctx = _build_iren_context()
-        assert "IREN" in ctx
+class TestBuildProviderContext:
+    def test_includes_name(self):
+        ctx = _build_provider_context()
+        assert PROVIDER_PROFILE["name"].upper() in ctx
+
+    def test_includes_ticker_when_public(self):
+        ctx = _build_provider_context()
+        ticker = PROVIDER_PROFILE.get("ticker")
+        if ticker:
+            assert ticker in ctx
+        else:
+            assert "(" not in ctx.splitlines()[0]
 
     def test_includes_products(self):
-        ctx = _build_iren_context()
+        ctx = _build_provider_context()
         assert "AI Cloud:" in ctx
         assert "Colocation:" in ctx
         assert "Build-to-Suit:" in ctx
 
     def test_includes_gpu_models(self):
-        ctx = _build_iren_context()
-        gpu_models = IREN_BENCHMARK.get("gpu_models", [])
+        ctx = _build_provider_context()
+        gpu_models = PROVIDER_PROFILE.get("gpu_models", [])
         if gpu_models:
             for model in gpu_models[:2]:
                 assert model in ctx
@@ -200,8 +208,8 @@ class TestBuildIrenContext:
             assert "ABOUT" in ctx
 
     def test_includes_locations(self):
-        ctx = _build_iren_context()
-        locations = IREN_BENCHMARK.get("locations", [])
+        ctx = _build_provider_context()
+        locations = PROVIDER_PROFILE.get("locations", [])
         if locations:
             for loc in locations[:2]:
                 assert loc in ctx
@@ -209,17 +217,17 @@ class TestBuildIrenContext:
             assert "ABOUT" in ctx
 
     def test_includes_capacity(self):
-        ctx = _build_iren_context()
-        cap = IREN_BENCHMARK.get("capacity_mw", 0)
+        ctx = _build_provider_context()
+        cap = PROVIDER_PROFILE.get("capacity_mw", 0)
         if cap:
             assert f"{cap:,} MW" in ctx
         else:
             assert "ABOUT" in ctx
 
     def test_no_hardcoded_data(self):
-        """The context should be built from IREN_BENCHMARK, not hardcoded."""
-        ctx = _build_iren_context()
-        assert "ABOUT IREN" in ctx
+        """The context should be built from PROVIDER_PROFILE, not hardcoded."""
+        ctx = _build_provider_context()
+        assert ctx.startswith(f"ABOUT {PROVIDER_PROFILE['name'].upper()}")
         assert len(ctx) > 100
 
 

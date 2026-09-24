@@ -38,7 +38,7 @@ alwaysApply: true
 - Embeddings → always Ollama, never OpenRouter
 - Every LLM call must have a keyword-based fallback that works with no API key
 - Never hardcode model names — read from `config.py` env vars
-- Never hardcode Iren product data in prompts — read from `IREN_BENCHMARK` via `_build_iren_context()`
+- Never hardcode provider product data in prompts. Read from `PROVIDER_PROFILE` via `_build_provider_context()`
 - Bulk tier falls back to keyword extraction on failure — never escalates to analysis tier
 - Premium tier falls back to analysis tier on failure
 
